@@ -13,7 +13,7 @@
 <button onclick="javascript:injectHTML();">Go<button>
 </main>
 
-<iframe id="test_iframe" src="about:blank" width="100%"></iframe>
+<iframe id="test_iframe" src="about:blank" width="100%" height="100%"></iframe>
 
 <script src=lib/lean.js></script>
 <script src=lib/Readability.js></script>
@@ -48,8 +48,13 @@ function injectHTML() {
 
 			const article = new Readability(iframedoc).parse()
 			iframedoc.close();
+
+			const link = document.createElement('link')
+			link.href = 'https://cdn.simplecss.org/simple.min.css'
+			link.rel = 'stylesheet'
+			link.type = 'text/css'
+			iframedoc.head.appendChild(link)
 			iframedoc.body.innerHTML = article.content
-			console.log(article)
 		} else {
 			//just in case of browsers that don't support the above 3 properties.
 			//fortunately we don't come across such case so far.
